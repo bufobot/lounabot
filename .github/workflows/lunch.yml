@@ -1,19 +1,19 @@
 name: Lunch menu
 on:
-schedule:
-- cron:"0 8,9 * * 1-5”
-workflow_dispatch:
-# UTC; bot.py only sends when it's 11:xx in Tallinn
+  schedule:
+    - cron: "0 8,9 * * 1-5"
+  workflow_dispatch:
 jobs:
-send:
-runs-on: ubuntu-latest
-steps:
-- uses: actions/checkout@v4
-- uses: actions/setup-python@v5
-with:{ python-version:"3.12" }
-- run: pip install requests pypdf
-- run: python bot.py
-env:
-TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-FORCE: ${{ github.event_name =='workflow_dispatch' && '1' II" }}
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests pypdf
+      - run: python bot.py
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          FORCE: ${{ github.event_name == 'workflow_dispatch' && '1' || '' }}
