@@ -98,7 +98,7 @@ def send(text: str) -> None:
 
 if __name__ == "__main__":
     now = datetime.now(TZ)
-manual = os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
-if not manual and (now.hour != 11 or now.weekday() > 4):
+    manual = os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
+    if not manual and (now.hour != 11 or now.weekday() > 4):
         sys.exit(0)  # not 11:00 in Tallinn / weekend
     send(build_message())
